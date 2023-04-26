@@ -22,7 +22,7 @@
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Sign up</h2>
-                        <form method="POST" class="register-form" id="register-form" action="/signup">
+                        <form method="POST" class="register-form" id="register-form" action="/signup" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="name" id="name" placeholder="Your Name"/>
@@ -48,8 +48,8 @@
                                 <input type="text" name="Address" id="Address" placeholder="Address"/>
                             </div>
                             <div class="form-group">
-                                <label for="adhar"><i class="zmdi zmdi-file"><h>ADHAR</h></i></label>
-                                <br><br><input type="file" name="adhar" id="adhar" />
+                                <label for="file"><i class="zmdi zmdi-file"><h>ADHAR</h></i></label>
+                                <br><br><input type="file" name="file" id="file" />
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />

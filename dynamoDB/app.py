@@ -9,11 +9,19 @@ from flask import Flask, render_template, request
 import key_config as keys
 import boto3
 import requests
+from werkzeug.utils import secure_filename
+
+BUCKET_NAME='empbuk'
 
 app = Flask(__name__)
 
 x=''
 dynamodb = boto3.resource('dynamodb',
+                    aws_access_key_id=keys.ACCESS_KEY_ID,
+                    aws_secret_access_key=keys.ACCESS_SECRET_KEY,
+                    region_name=keys.AWS_DEFAULT_REGION)
+
+s3 = boto3.client('s3',
                     aws_access_key_id=keys.ACCESS_KEY_ID,
                     aws_secret_access_key=keys.ACCESS_SECRET_KEY,
                     region_name=keys.AWS_DEFAULT_REGION)
@@ -46,6 +54,16 @@ def signup():
         'Address' : Address
             }
         )
+        
+        img = request.files['file']
+        if img:
+                filename = secure_filename(img.filename)
+                img.save(filename)
+                s3.upload_file(
+                    Bucket = BUCKET_NAME,
+                    Filename=filename,
+                    Key = filename
+                )
         msg = "Registration Complete. Please Login to your account !"
     
         return render_template('login1.html',msg = msg)
@@ -200,6 +218,24 @@ def pay3():
     items = response['Items']
 
     return render_template('payment2.html',items=items)
+
+
+@app.route('/upload',methods=['post'])
+def upload():
+    if request.method == 'POST':
+        img = request.files['file']
+        if img:
+                filename = secure_filename(img.filename)
+                img.save(filename)
+                s3.upload_file(
+                    Bucket = BUCKET_NAME,
+                    Filename=filename,
+                    Key = filename
+                )
+                msg = "Upload Done ! "
+
+    return render_template("file_upload_to_s3.html",msg =msg)
+
 
 if __name__ == "__main__":
     
