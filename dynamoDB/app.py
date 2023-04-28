@@ -111,7 +111,7 @@ def product():
     
     userdata=x + 'table'
     if request.method=='POST':
-            tablecreate()
+            #tablecreate()
             product1 = request.form['product1']
             quantity1 = request.form['quantity1']
             producttable = dynamodb.Table(userdata)
