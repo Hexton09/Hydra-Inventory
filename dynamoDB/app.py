@@ -114,7 +114,7 @@ def product():
             #tablecreate()
             product1 = request.form['product1']
             quantity1 = request.form['quantity1']
-            producttable = dynamodb.Table(userdata)
+            producttable = dynamodb.Table("table")
         
             producttable.put_item(
             Item={
