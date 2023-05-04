@@ -24,3 +24,4 @@ cd repo8/
 cd dynamoDB/
 
 sudo python3 app.py
+# Do update config file with your aceess id and key
